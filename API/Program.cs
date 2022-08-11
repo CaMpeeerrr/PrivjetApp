@@ -7,6 +7,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
+builder.Services.AddAuthentication("Bearer")
+    .AddIdentityServerAuthentication("Bearer", options =>
+    {
+        options.Authority = "https://localhost5443";
+        options.ApiName = "ShopAPI";
+    });
+
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -14,6 +21,9 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectio
 builder.Services.AddScoped<IShopService, ShopService>();
 
 var app = builder.Build();
+
+app.UseAuthentication();
+app.UseAuthorization(); 
 
 app.MapControllers();
 

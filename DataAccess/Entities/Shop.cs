@@ -10,7 +10,7 @@ namespace DataAccess.Entities
     {
         public int Id { get; set; } 
         public string Names { get; set; }
-        public String OpeningHours { get; set; }
+        public string OpeningHours { get; set; }
         public string Address { get; set; }
     }
 }
